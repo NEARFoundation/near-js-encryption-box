@@ -1,0 +1,20 @@
+{
+  "name": "near-js-encryption-box",
+  "version": "1.0.0",
+  "description": "Encrypt and decrypt secrets using NEAR account's ed25519 keypairs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandoche/near-js-encryption-box.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sandoche/near-js-encryption-box/issues"
+  },
+  "homepage": "https://github.com/sandoche/near-js-encryption-box#readme"
+}
