@@ -1,6 +1,6 @@
 import { create, open } from './../src';
 import { utils } from 'near-api-js';
-import { encodeBase64 } from 'tweetnacl-util';
+// import { encodeBase64 } from 'tweetnacl-util';
 
 describe('Creating a secret box with Alice and Bob key pairs randomly generated from NEAR JS LIBRARY', () => {
   const keyPairAlice = utils.key_pair.KeyPairEd25519.fromRandom();
@@ -9,7 +9,7 @@ describe('Creating a secret box with Alice and Bob key pairs randomly generated 
   it('Should the message open should be the same as the message sent', () => {
     const messageSent = 'Hello world';
 
-    const publicKeyBob = encodeBase64(keyPairBob.getPublicKey().data);
+    const publicKeyBob = keyPairBob.getPublicKey().toString();
     const privateKeyAlice = keyPairAlice.secretKey;
 
     const { secret, nonce } = create(
@@ -18,7 +18,7 @@ describe('Creating a secret box with Alice and Bob key pairs randomly generated 
       privateKeyAlice
     );
 
-    const publicKeyAlice = encodeBase64(keyPairAlice.getPublicKey().data);
+    const publicKeyAlice = keyPairAlice.getPublicKey().toString();
     const privateKeyBob = keyPairBob.secretKey;
 
     const messageReceived = open(secret, publicKeyAlice, privateKeyBob, nonce);
@@ -27,36 +27,36 @@ describe('Creating a secret box with Alice and Bob key pairs randomly generated 
   });
 });
 
-describe('Creating a secret box with Alice and Bob key pairs generated with NEAR CLI', () => {
-  const keyPairAlice = {
-    publicKey: 'ed25519:d9ymaE7DT8ydtEvxgfs4UERofMF749szvniWTRQJBBh',
-    privateKey:
-      '09430fbb4310e17cec8c8639d6b2c6c59c28ca5c9fdd9680834737aa1aeadfec',
-  };
+// describe('Creating a secret box with Alice and Bob key pairs generated with NEAR CLI', () => {
+//   const keyPairAlice = {
+//     publicKey: 'ed25519:d9ymaE7DT8ydtEvxgfs4UERofMF749szvniWTRQJBBh',
+//     privateKey:
+//       '09430fbb4310e17cec8c8639d6b2c6c59c28ca5c9fdd9680834737aa1aeadfec',
+//   };
 
-  const keyPairBob = {
-    publicKey: 'ed25519:d9ymaE7DT8ydtEvxgfs4UERofMF749szvniWTRQJBBh',
-    privateKey:
-      '09430fbb4310e17cec8c8639d6b2c6c59c28ca5c9fdd9680834737aa1aeadfec',
-  };
+//   const keyPairBob = {
+//     publicKey: 'ed25519:d9ymaE7DT8ydtEvxgfs4UERofMF749szvniWTRQJBBh',
+//     privateKey:
+//       '09430fbb4310e17cec8c8639d6b2c6c59c28ca5c9fdd9680834737aa1aeadfec',
+//   };
 
-  it('Should the message open should be the same as the message sent', () => {
-    const messageSent = 'Hello world';
+//   it('Should the message open should be the same as the message sent', () => {
+//     const messageSent = 'Hello world';
 
-    const publicKeyBob = keyPairBob.publicKey;
-    const privateKeyAlice = keyPairAlice.privateKey;
+//     const publicKeyBob = keyPairBob.publicKey;
+//     const privateKeyAlice = keyPairAlice.privateKey;
 
-    const { secret, nonce } = create(
-      messageSent,
-      publicKeyBob,
-      privateKeyAlice
-    );
+//     const { secret, nonce } = create(
+//       messageSent,
+//       publicKeyBob,
+//       privateKeyAlice
+//     );
 
-    const publicKeyAlice = keyPairAlice.publicKey;
-    const privateKeyBob = keyPairBob.privateKey;
+//     const publicKeyAlice = keyPairAlice.publicKey;
+//     const privateKeyBob = keyPairBob.privateKey;
 
-    const messageReceived = open(secret, publicKeyAlice, privateKeyBob, nonce);
+//     const messageReceived = open(secret, publicKeyAlice, privateKeyBob, nonce);
 
-    expect(messageSent).toBe(messageReceived);
-  });
-});
+//     expect(messageSent).toBe(messageReceived);
+//   });
+// });

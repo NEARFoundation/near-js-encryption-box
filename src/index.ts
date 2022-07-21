@@ -5,7 +5,7 @@ import {
   decodeUTF8,
   encodeUTF8,
 } from 'tweetnacl-util';
-// import { baseDecode } from 'borsh';
+import { baseDecode } from 'borsh';
 import { box } from 'tweetnacl';
 import randomBytes from 'random-bytes';
 
@@ -14,8 +14,12 @@ export const create = (
   publicKey: string,
   privateKey: string
 ): { secret: string; nonce: string } => {
-  const publicKeyBytes = decodeBase64(publicKey.replace('ed25519:', ''));
-  const privateKeyBytes = decodeBase64(privateKey.replace('ed25519:', ''));
+  const publicKeyBytes = decodeBase64(
+    baseDecode(publicKey.replace('ed25519:', '')).toString('base64')
+  );
+  const privateKeyBytes = decodeBase64(
+    baseDecode(privateKey.replace('ed25519:', '')).toString('base64')
+  );
   const convertedPublicKey = convertPublicKey(publicKeyBytes);
   const convertedPrivateKey = convertSecretKey(privateKeyBytes.slice(0, 32));
 
@@ -45,8 +49,12 @@ export const open = (
   privateKey: string,
   nonce: string
 ): string | null => {
-  const publicKeyBytes = decodeBase64(publicKey.replace('ed25519:', ''));
-  const privateKeyBytes = decodeBase64(privateKey.replace('ed25519:', ''));
+  const publicKeyBytes = decodeBase64(
+    baseDecode(publicKey.replace('ed25519:', '')).toString('base64')
+  );
+  const privateKeyBytes = decodeBase64(
+    baseDecode(privateKey.replace('ed25519:', '')).toString('base64')
+  );
   const convertedPublicKey = convertPublicKey(publicKeyBytes);
   const convertedPrivateKey = convertSecretKey(privateKeyBytes.slice(0, 32));
 
