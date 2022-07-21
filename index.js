@@ -5,10 +5,12 @@ const { baseDecode } = require("borsh");
 const { box } = require("tweetnacl");
 const randomBytes = require("random-bytes");
 
-console.log("[near-js-encryption-box] Encoding secret message");
+console.log("[near-js-encryption-box] Creating two keypairs");
 
 const keyPairSender = utils.key_pair.KeyPairEd25519.fromRandom();
 const keyPairReceiver = utils.key_pair.KeyPairEd25519.fromRandom();
+
+console.log("[near-js-encryption-box] Encoding secret message");
 
 const convertedPublicKeyReceiver = convertPublicKey(
   keyPairReceiver.getPublicKey().data
@@ -33,6 +35,31 @@ const secret = box(
   convertedPrivateKeySender
 );
 const secretString = encodeBase64(secret);
+const nonceString = nonceEncoded.toString("base64");
 
 console.log("[near-js-encryption-box] Secret:", secretString);
-console.log("[near-js-encryption-box] Nonce:", nonceEncoded.toString("base64"));
+console.log("[near-js-encryption-box] Nonce:", nonceString);
+
+console.log("[near-js-encryption-box] Decoding secret message");
+
+const secredEncoded = decodeBase64(secretString);
+const nonceEncodedFromString = decodeBase64(nonceString);
+
+const privateKeyReceiver = decodeBase64(
+  baseDecode(keyPairReceiver.secretKey).toString("base64")
+);
+const convertedPrivateKeyReceiver = convertSecretKey(
+  privateKeyReceiver.slice(0, 32)
+);
+const convertedPublicKeySender = convertPublicKey(
+  keyPairSender.getPublicKey().data
+);
+
+const secretDecoded = box.open(
+  secredEncoded,
+  nonceEncodedFromString,
+  convertedPublicKeySender,
+  convertedPrivateKeyReceiver
+);
+
+console.log("[near-js-encryption-box] Message:", secretDecoded.toString());
