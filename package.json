@@ -19,7 +19,6 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -46,12 +45,14 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
+    "@types/ed2curve": "^0.2.2",
+    "@types/random-bytes": "^1.0.1",
     "husky": "^8.0.1",
+    "near-api-js": "^0.45.1",
     "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.7.4",
-    "near-api-js": "^0.45.1"
+    "typescript": "^4.7.4"
   },
   "dependencies": {
     "borsh": "^0.7.0",
