@@ -1,6 +1,11 @@
 const { utils } = require("near-api-js");
 const { convertPublicKey, convertSecretKey } = require("ed2curve");
-const { encodeBase64, decodeBase64, decodeUTF8 } = require("tweetnacl-util");
+const {
+  encodeBase64,
+  decodeBase64,
+  decodeUTF8,
+  encodeUTF8,
+} = require("tweetnacl-util");
 const { baseDecode } = require("borsh");
 const { box } = require("tweetnacl");
 const randomBytes = require("random-bytes");
@@ -76,7 +81,4 @@ const secretDecoded = box.open(
   convertedPrivateKeyReceiver
 );
 
-console.log(
-  "[near-js-encryption-box] Message:",
-  encodeBase64(secretDecoded).toString("base64")
-);
+console.log("[near-js-encryption-box] Message:", encodeUTF8(secretDecoded));
