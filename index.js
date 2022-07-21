@@ -28,6 +28,13 @@ const message = "Hello world";
 const messageEncoded = decodeUTF8(message);
 const nonceEncoded = randomBytes.sync(24);
 
+console.log("[near-js-encryption-box] Creating the box", {
+  message,
+  nonce: nonceEncoded.toString("base64"),
+  publicKey: encodeBase64(convertedPublicKeyReceiver),
+  privateKey: encodeBase64(convertedPrivateKeySender),
+});
+
 const secret = box(
   messageEncoded,
   nonceEncoded,
@@ -42,7 +49,7 @@ console.log("[near-js-encryption-box] Nonce:", nonceString);
 
 console.log("[near-js-encryption-box] Decoding secret message");
 
-const secredEncoded = decodeBase64(secretString);
+const secretEncoded = decodeBase64(secretString);
 const nonceEncodedFromString = decodeBase64(nonceString);
 
 const privateKeyReceiver = decodeBase64(
@@ -55,11 +62,21 @@ const convertedPublicKeySender = convertPublicKey(
   keyPairSender.getPublicKey().data
 );
 
+console.log("[near-js-encryption-box] Decoding the box", {
+  secretString,
+  nonceString,
+  publicKey: encodeBase64(convertedPublicKeySender),
+  privateKey: encodeBase64(convertedPrivateKeyReceiver),
+});
+
 const secretDecoded = box.open(
-  secredEncoded,
+  secretEncoded,
   nonceEncodedFromString,
   convertedPublicKeySender,
   convertedPrivateKeyReceiver
 );
 
-console.log("[near-js-encryption-box] Message:", secretDecoded.toString());
+console.log(
+  "[near-js-encryption-box] Message:",
+  encodeBase64(secretDecoded).toString("base64")
+);
