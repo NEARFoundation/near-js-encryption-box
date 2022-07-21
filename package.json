@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/sandoche/near-js-encryption-box#readme",
   "dependencies": {
+    "borsh": "^0.7.0",
     "ed2curve": "^0.3.0",
-    "near-api-js": "^0.45.1"
+    "near-api-js": "^0.45.1",
+    "tweetnacl-util": "^0.15.1"
   }
 }
