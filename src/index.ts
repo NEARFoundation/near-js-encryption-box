@@ -5,11 +5,11 @@ import {
   decodeUTF8,
   encodeUTF8,
 } from 'tweetnacl-util';
-import { baseDecode } from 'borsh';
+// import { baseDecode } from 'borsh';
 import { box } from 'tweetnacl';
 import randomBytes from 'random-bytes';
 
-const create = (
+export const create = (
   message: string,
   publicKey: string,
   privateKey: string
@@ -39,7 +39,7 @@ const create = (
   };
 };
 
-const open = (
+export const open = (
   secret: string,
   publicKey: string,
   privateKey: string,
@@ -65,9 +65,4 @@ const open = (
   );
 
   return secretDecoded ? encodeUTF8(secretDecoded) : null;
-};
-
-export default {
-  create,
-  open,
 };
