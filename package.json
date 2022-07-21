@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/sandoche/near-js-encryption-box/issues"
   },
-  "homepage": "https://github.com/sandoche/near-js-encryption-box#readme"
+  "homepage": "https://github.com/sandoche/near-js-encryption-box#readme",
+  "dependencies": {
+    "ed2curve": "^0.3.0",
+    "near-api-js": "^0.45.1"
+  }
 }
