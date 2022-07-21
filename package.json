@@ -1,28 +1,55 @@
 {
-  "name": "near-js-encryption-box",
-  "version": "1.0.0",
-  "description": "Encrypt and decrypt secrets using NEAR account's ed25519 keypairs",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sandoche/near-js-encryption-box.git"
-  },
-  "author": "",
+  "version": "0.1.0",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sandoche/near-js-encryption-box/issues"
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
   },
-  "homepage": "https://github.com/sandoche/near-js-encryption-box#readme",
-  "dependencies": {
-    "borsh": "^0.7.0",
-    "ed2curve": "^0.3.0",
-    "near-api-js": "^0.45.1",
-    "random-bytes": "^1.0.0",
-    "tweetnacl": "^1.0.3",
-    "tweetnacl-util": "^0.15.1"
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "near-js-encryption-box",
+  "author": "Sandoche Adittane",
+  "module": "dist/near-js-encryption-box.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/near-js-encryption-box.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/near-js-encryption-box.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "husky": "^8.0.1",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
   }
 }
