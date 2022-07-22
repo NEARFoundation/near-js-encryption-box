@@ -1,0 +1,64 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "near-js-encryption-box",
+  "author": "Sandoche Adittane",
+  "module": "dist/near-js-encryption-box.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/near-js-encryption-box.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/near-js-encryption-box.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@types/ed2curve": "^0.2.2",
+    "@types/random-bytes": "^1.0.1",
+    "husky": "^8.0.1",
+    "near-api-js": "^0.45.1",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "borsh": "^0.7.0",
+    "ed2curve": "^0.3.0",
+    "random-bytes": "^1.0.0",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1"
+  }
+}
