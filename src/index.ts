@@ -1,11 +1,13 @@
-import { convertPublicKey, convertSecretKey } from 'ed2curve';
+import {
+  parseAndConvertPublicKey,
+  parseAndConvertPrivateKey,
+} from './utils/keyConverter';
 import {
   encodeBase64,
   decodeBase64,
   decodeUTF8,
   encodeUTF8,
 } from 'tweetnacl-util';
-import { baseDecode } from 'borsh';
 import { box } from 'tweetnacl';
 import randomBytes from 'random-bytes';
 
@@ -14,18 +16,8 @@ export const create = (
   publicKey: string,
   privateKey: string
 ): { secret: string; nonce: string } => {
-  const privateKeyOnly = privateKey.replace('ed25519:', '');
-
-  const publicKeyBytes = decodeBase64(
-    baseDecode(publicKey.replace('ed25519:', '')).toString('base64')
-  );
-  const privateKeyBytes =
-    privateKeyOnly.length === 64
-      ? decodeBase64(Buffer.from(privateKeyOnly, 'hex').toString('base64'))
-      : decodeBase64(baseDecode(privateKeyOnly).toString('base64'));
-
-  const convertedPublicKey = convertPublicKey(publicKeyBytes);
-  const convertedPrivateKey = convertSecretKey(privateKeyBytes.slice(0, 32));
+  const convertedPublicKey = parseAndConvertPublicKey(publicKey);
+  const convertedPrivateKey = parseAndConvertPrivateKey(privateKey);
 
   const encodedMessage = decodeUTF8(message);
   const encodedNonce = randomBytes.sync(24);
@@ -53,18 +45,8 @@ export const open = (
   privateKey: string,
   nonce: string
 ): string | null => {
-  const privateKeyOnly = privateKey.replace('ed25519:', '');
-
-  const publicKeyBytes = decodeBase64(
-    baseDecode(publicKey.replace('ed25519:', '')).toString('base64')
-  );
-  const privateKeyBytes =
-    privateKeyOnly.length === 64
-      ? decodeBase64(Buffer.from(privateKeyOnly, 'hex').toString('base64'))
-      : decodeBase64(baseDecode(privateKeyOnly).toString('base64'));
-
-  const convertedPublicKey = convertPublicKey(publicKeyBytes);
-  const convertedPrivateKey = convertSecretKey(privateKeyBytes.slice(0, 32));
+  const convertedPublicKey = parseAndConvertPublicKey(publicKey);
+  const convertedPrivateKey = parseAndConvertPrivateKey(privateKey);
 
   const encodedSecret = decodeBase64(secret);
   const encodedNonce = decodeBase64(nonce);
