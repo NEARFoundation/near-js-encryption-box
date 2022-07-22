@@ -1,4 +1,4 @@
-# near-js-encryption-box
+# near-js-encryption-box [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![NEAR](https://img.shields.io/badge/NEAR-%E2%8B%88-111111.svg)](https://near.org/)
 
 > An experimental library to encrypt and decrypt data using the NEAR account's ed25519 keypairs; you can use it to store encrypted data on-chain, off-chain, or in any decentralized storage (IPFS, Arweave).
 
