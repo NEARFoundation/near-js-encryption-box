@@ -1,5 +1,7 @@
 import { create, open } from './../src';
 import { utils } from 'near-api-js';
+import { encodeBase64 } from 'tweetnacl-util';
+import randomBytes from 'random-bytes';
 
 describe('Creating a secret box with Alice and Bob key pairs randomly generated from NEAR JS LIBRARY', () => {
   const keyPairAlice = utils.key_pair.KeyPairEd25519.fromRandom();
@@ -168,6 +170,43 @@ describe('Creating a secret box for Alice only', () => {
     const privateKeyBob = keyPairBob.secretKey;
 
     const messageReceived = open(secret, publicKeyAlice, privateKeyBob, nonce);
+
+    expect(messageReceived).toBe(null);
+  });
+});
+
+describe('Creating a secret box with Alice and Bob key pairs randomly generated from NEAR JS LIBRARY with a custom nonce', () => {
+  const keyPairAlice = utils.key_pair.KeyPairEd25519.fromRandom();
+  const keyPairBob = utils.key_pair.KeyPairEd25519.fromRandom();
+  const keyPairCharlie = utils.key_pair.KeyPairEd25519.fromRandom();
+
+  const messageSent = 'Hello world';
+
+  const publicKeyBob = keyPairBob.getPublicKey().toString();
+  const privateKeyAlice = keyPairAlice.secretKey;
+
+  const nonce = encodeBase64(randomBytes.sync(24));
+  const { secret } = create(messageSent, publicKeyBob, privateKeyAlice, nonce);
+
+  it('Should contain the same message sent by Alice opened by Bob', () => {
+    const publicKeyAlice = keyPairAlice.getPublicKey().toString();
+    const privateKeyBob = keyPairBob.secretKey;
+
+    const messageReceived = open(secret, publicKeyAlice, privateKeyBob, nonce);
+
+    expect(messageSent).toBe(messageReceived);
+  });
+
+  it('Should not let Charlie open the box created by Alice and sent to Bob', () => {
+    const publicKeyAlice = keyPairAlice.getPublicKey().toString();
+    const privateKeyCharlie = keyPairCharlie.secretKey;
+
+    const messageReceived = open(
+      secret,
+      publicKeyAlice,
+      privateKeyCharlie,
+      nonce
+    );
 
     expect(messageReceived).toBe(null);
   });

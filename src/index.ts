@@ -14,13 +14,14 @@ import randomBytes from 'random-bytes';
 export const create = (
   message: string,
   publicKey: string,
-  privateKey: string
+  privateKey: string,
+  nonce?: string
 ): { secret: string; nonce: string } => {
   const convertedPublicKey = parseAndConvertPublicKey(publicKey);
   const convertedPrivateKey = parseAndConvertPrivateKey(privateKey);
 
   const encodedMessage = decodeUTF8(message);
-  const encodedNonce = randomBytes.sync(24);
+  const encodedNonce = nonce ? decodeBase64(nonce) : randomBytes.sync(24);
 
   if (!convertedPublicKey || !convertedPrivateKey) {
     throw new Error('Invalid public or private key');
