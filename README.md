@@ -11,7 +11,7 @@ Coming soon
 ## Installation
 
 ```bash
-npm install https://github.com/sandoche/near-js-encryption-box
+npm install https://github.com/NEARFoundation/near-js-encryption-box
 ```
 
 > This package has not been published to npm yet.
