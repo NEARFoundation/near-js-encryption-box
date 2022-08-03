@@ -33,7 +33,7 @@ const keyPairBob = utils.key_pair.KeyPairEd25519.fromRandom();
 const message = 'Hello Bob';
 const publicKeyBob = keyPairBob.getPublicKey().toString();
 const privateKeyAlice = keyPairAlice.secretKey;
-const { secret, nonce } = create(message, publicKeyBob, privateKeyAlice); // you can also pass your own custom nonce as a 4th paramter
+const { secret, nonce } = create(message, publicKeyBob, privateKeyAlice); // you can also pass your own custom nonce as a 4th parameter
 
 // Decrypting the message
 const publicKeyAlice = keyPairAlice.getPublicKey().toString();
