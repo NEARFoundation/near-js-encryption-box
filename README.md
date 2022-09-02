@@ -4,14 +4,10 @@
 
 ⚠️ This is an experimental library. We do not recommend to use it to store confidential information publically.
 
-## Projects using this library
-
-Coming soon
-
 ## Installation
 
 ```bash
-npm install https://github.com/NEARFoundation/near-js-encryption-box
+npm install @nearfoundation/near-js-encryption-box
 ```
 
 > This package has not been published to npm yet.
