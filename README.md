@@ -10,8 +10,6 @@
 npm install @nearfoundation/near-js-encryption-box
 ```
 
-> This package has not been published to npm yet.
-
 ## Usage
 
 You can find below an example where Alice encrypt data with her private key and Bob's public key.
